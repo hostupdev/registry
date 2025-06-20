@@ -1,0 +1,45 @@
+sections:
+  dockge:
+    label: "Dockge Service"
+    refs:
+      - services.dockge
+    doc: "Web-based Docker Compose stack manager."
+
+inputs:
+  image_tag:
+    label: "Image Tag"
+    ref: services.dockge.image
+    type: image(louislam/dockge)
+    default: latest
+    doc: "Image tag for Dockge."
+
+  stacks_dir:
+    label: "Stacks Directory"
+    ref: ${STACKS_DIR}
+    type: string
+    doc: "Path to the directory containing your Docker Compose stacks."
+
+  data_location:
+    label: "Data Location"
+    ref: services.dockge.volumes[2]
+    type: string
+    doc: "Persistent data binding for Dockge."
+
+  port:
+    label: "Port"
+    ref: services.dockge.ports[0].published
+    type: int
+    doc: "Exposed port for Dockge web console."
+
+  enable_console:
+    label: "Enable Console"
+    ref: ${ENABLE_CONSOLE}
+    type: bool
+    optional: true
+    doc: "Enable the Dockge web console."
+  
+  restart:
+    label: "Restart Policy"
+    ref: services.dockge.restart
+    type: enum(no, always, on-failure, unless-stopped)
+    doc: "Container restart policy."

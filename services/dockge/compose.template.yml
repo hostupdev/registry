@@ -1,0 +1,15 @@
+services:
+  dockge:
+    container_name: dockge
+    hostname: dockge
+    image: louislam/dockge:${CONTAINER_TAG:-latest}
+    environment:
+      - DOCKGE_STACKS_DIR=${STACKS_DIR:?}
+      - DOCKGE_ENABLE_CONSOLE=false
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${STACKS_DIR:?}:${STACKS_DIR:?}
+      - ./data:/app/data
+    ports:
+      - 5001:5001
+    restart: unless-stopped

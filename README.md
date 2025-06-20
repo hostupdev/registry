@@ -1,0 +1,1 @@
+# Hostup Service & Template Registry
